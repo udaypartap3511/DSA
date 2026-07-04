@@ -1,26 +1,21 @@
 class Solution {
 public:
-    int dpcount(vector<vector<int>>& v,int i, int j){
-         if(i==v.size()-1 && j==v[0].size()-1){
-            return 1;
-         }
-          if(i>v.size()-1 || j>v[0].size()-1){
-            return 0;
-         }
 
-         if(v[i][j]!=-1){
-            return v[i][j];
-         }
+    int answer(vector<vector<int>> &v,int i,int j,int m,int n){
 
-         return v[i][j]= dpcount(v,i+1,j)+dpcount(v,i,j+1);
+        if(i==m-1 || j== n-1){
+            return v[i][j]= 1;
+        }
+
+        else if(v[i][j]!=-1){
+           return v[i][j];
+        }
+
+        return v[i][j]=answer(v,i+1,j,m,n)+answer(v,i,j+1,m,n);
     }
     int uniquePaths(int m, int n) {
-
-       //use memoization
-
         vector<vector<int>> v(m,vector<int>(n,-1));
 
-        return dpcount(v,0,0);
-        
+        return answer(v,0,0,m,n);
     }
 };
