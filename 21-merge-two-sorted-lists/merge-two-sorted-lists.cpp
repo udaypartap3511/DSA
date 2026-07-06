@@ -21,17 +21,19 @@ public:
             }
             else{
                 dd->next=list2;
-                list2=list2->next;
+                list2=list2->next; 
             }
             dd=dd->next;
         }
+
         if(list1!=nullptr){
             dd->next=list1;
         }
-        else{
+        if(list2!=nullptr){
             dd->next=list2;
         }
-      
-      return d->next;
+
+        return d->next;
+
     }
 };
