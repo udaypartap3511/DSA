@@ -24,13 +24,6 @@ public:
             slow=slow->next;}
         }
 
-        slow=head;
-
-        while(fast!=slow){
-            slow=slow->next;
-            fast=fast->next;
-        }
-
         return true;
 
     }
