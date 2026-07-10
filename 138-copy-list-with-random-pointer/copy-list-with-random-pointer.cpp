@@ -29,14 +29,12 @@ public:
         Node* dummy=new Node(-1);
         while(temp!=nullptr){
             dummy->next=mp[temp];
-            dummy=dummy->next;
-            temp=temp->next;
-        }
-        temp=head;
-        while(temp!=nullptr){
             mp[temp]->random=mp[temp->random];
             temp=temp->next;
+            dummy=dummy->next;
+            
         }
+        
 
         return mp[head];
         
