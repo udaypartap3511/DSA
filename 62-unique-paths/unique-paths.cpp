@@ -1,21 +1,20 @@
 class Solution {
 public:
-
-    int answer(vector<vector<int>> &v,int i,int j,int m,int n){
-
-        if(i==m-1 || j== n-1){
-            return v[i][j]= 1;
+    int ans(int m,int n,vector<vector<int>> &v,int i,int j){
+        if(i>=m-1 || j>=n-1){
+            return v[i][j]=1;
+        }
+        if(v[i][j]!=-1){
+            return v[i][j];
         }
 
-        else if(v[i][j]!=-1){
-           return v[i][j];
-        }
-
-        return v[i][j]=answer(v,i+1,j,m,n)+answer(v,i,j+1,m,n);
+        return v[i][j]=ans(m,n,v,i+1,j)+ans(m,n,v,i,j+1);
     }
     int uniquePaths(int m, int n) {
+
         vector<vector<int>> v(m,vector<int>(n,-1));
 
-        return answer(v,0,0,m,n);
+        return ans(m,n,v,0,0);
+        
     }
 };
