@@ -1,50 +1,50 @@
 class Solution {
 public:
 
-    void merge(vector<int> &nums,int low,int mid,int high){
-        
-        int left=low;
-        int right=mid+1;
-        vector<int> temp;
+   void merge(vector<int>&nums,int low,int mid,int high){
+    int left=low;
+    int right=mid+1;
+    vector<int> temp;
 
-        while(left<=mid && right<=high){
-            if(nums[left]<=nums[right]){
-                temp.push_back(nums[left++]);
-            }
-            else{
-                temp.push_back(nums[right++]);
-            }
-        }
-
-        while(left<=mid){
+    while(left<=mid && right<=high){
+        if(nums[left]<=nums[right]){
             temp.push_back(nums[left++]);
         }
-        while(right<=high){
+        else{
             temp.push_back(nums[right++]);
         }
-
-        for(int k=0;k<temp.size();k++){
-            nums[low+k]=temp[k];
-        }
-
     }
 
-    int countpairs(vector<int>&nums,int low,int mid,int high){
-        int cnt=0;
-        int left=low;
-        int right=mid+1;
-        while(left<=mid){
+    while(left<=mid){
+        temp.push_back(nums[left++]);
+    }
+    while(right<=high){
+        temp.push_back(nums[right++]);
+    }
 
-            while(right<=high && nums[left]>2LL*nums[right]){
-                right++;
-            }
-            cnt+=right-(mid+1);
+    for(int k=0;k<temp.size();k++){
+        nums[low+k]=temp[k];
+    }
+   }
+
+   int method(vector<int> &nums,int low,int mid,int high){
+    int cnt=0;
+    int left=low;
+    int right=mid+1;
+      while(left<=mid && right<=high){
+        if(2LL*nums[right]<nums[left]){
+            cnt+=mid-left+1;
+            right++;
+        }
+        else{
             left++;
         }
+      }
 
-        return cnt;
-    }
-    int mergesort(vector<int> &nums,int low,int high){
+      return cnt;
+   }
+
+    int mergesort(vector<int>&nums,int low,int high){
         int cnt=0;
         if(low>=high){
             return cnt;
@@ -52,14 +52,15 @@ public:
         int mid=(low+high)/2;
         cnt+=mergesort(nums,low,mid);
         cnt+=mergesort(nums,mid+1,high);
-        cnt+=countpairs(nums,low,mid,high);
+        cnt+=method(nums,low,mid,high);
         merge(nums,low,mid,high);
 
         return cnt;
     }
     int reversePairs(vector<int>& nums) {
-        
+
         int n=nums.size();
         return mergesort(nums,0,n-1);
+        
     }
 };
