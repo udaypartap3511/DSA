@@ -14,6 +14,7 @@ public:
                 leftmax=max(leftmax,height[left]);
                 cnt+=leftmax-height[left];
                 left++;
+
             }
             else{
                 rightmax=max(rightmax,height[right]);
@@ -23,6 +24,7 @@ public:
         }
 
         return cnt;
+
         
     }
 };
