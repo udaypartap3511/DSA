@@ -6,25 +6,25 @@ public:
             return 0;
         }
 
-        sort(nums.begin(),nums.end());
+        unordered_set<int> st;
 
-        int cnt=1;
-        int maxcnt=1;
-
-        for(int i=1;i<nums.size();i++){
-            if(nums[i]-nums[i-1]==1){
-                cnt++;
-            }
-            else if(nums[i]==nums[i-1]){
-                continue;
-            }
-            else{
-                cnt=1;
-            }
-            maxcnt=max(cnt,maxcnt);
+        for(int i=0;i<nums.size();i++){
+            st.insert(nums[i]);
         }
 
+        int maxcnt=1;
+
+        for(int i:st){
+            if(st.find(i-1)==st.end()){
+                int cnt=1;
+                int x=i;
+                while(st.find(x+1)!=st.end()){
+                    cnt++;
+                    x=x+1;
+                }
+                maxcnt=max(cnt,maxcnt);
+            }
+        }
         return maxcnt;
-        
     }
 };
