@@ -14,10 +14,9 @@ public:
 
         set<vector<int>> ans;
         sort(nums.begin(),nums.end());
-        for(int i=0;i<nums.size();i++){
-            vector<int> v;
-             solve(nums,ans,v,i);
-        }
+        
+        vector<int> v;
+        solve(nums,ans,v,0);
 
         vector<vector<int>> res;
         for(auto i:ans){
