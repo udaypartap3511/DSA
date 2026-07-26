@@ -3,28 +3,29 @@ public:
     int trap(vector<int>& height) {
 
         int n=height.size();
+
         int left=0;
         int right=n-1;
-        int leftmax=height[left];
-        int rightmax=height[right];
+        int leftmost=0;
+        int rightmost=0;
+
         int cnt=0;
 
         while(left<=right){
-            if(leftmax<=rightmax){
-                leftmax=max(leftmax,height[left]);
-                cnt+=leftmax-height[left];
-                left++;
 
+            if(leftmost<=rightmost){
+               leftmost=max(leftmost,height[left]);
+               cnt+=leftmost-height[left];
+               left++;
             }
             else{
-                rightmax=max(rightmax,height[right]);
-                cnt+=rightmax-height[right];
+                rightmost=max(rightmost,height[right]);
+                cnt+=rightmost-height[right];
                 right--;
             }
         }
+        
 
         return cnt;
-
-        
     }
 };
