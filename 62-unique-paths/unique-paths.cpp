@@ -1,20 +1,20 @@
 class Solution {
 public:
-    int ans(int m,int n,vector<vector<int>> &v,int i,int j){
-        if(i>=m-1 || j>=n-1){
-            return v[i][j]=1;
-        }
-        if(v[i][j]!=-1){
-            return v[i][j];
+    int solve(vector<vector<int>> &mat,int i,int j,int m,int n){
+        if(i==m-1 || j==n-1){
+            return mat[i][j]=1;
         }
 
-        return v[i][j]=ans(m,n,v,i+1,j)+ans(m,n,v,i,j+1);
+        if(mat[i][j]!=-1){
+            return mat[i][j];
+        }
+
+        return mat[i][j]=solve(mat,i+1,j,m,n)+solve(mat,i,j+1,m,n);
     }
     int uniquePaths(int m, int n) {
 
-        vector<vector<int>> v(m,vector<int>(n,-1));
-
-        return ans(m,n,v,0,0);
+        vector<vector<int>> mat(m,vector<int>(n,-1));
         
+        return solve(mat,0,0,m,n);
     }
 };
