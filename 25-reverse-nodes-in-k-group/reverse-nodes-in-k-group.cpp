@@ -14,31 +14,31 @@ public:
         ListNode* prev=nullptr;
 
         while(temp!=nullptr){
-            ListNode* Next=temp->next;
+            ListNode* Next= temp->next;
             temp->next=prev;
             prev=temp;
             temp=Next;
         }
+
         return prev;
     }
     ListNode* kthNode(ListNode* temp,int k){
         k--;
-        while(temp!=nullptr && k!=0){
+        while(temp!=nullptr && k--){
             temp=temp->next;
-            k--;
         }
         return temp;
     }
     ListNode* reverseKGroup(ListNode* head, int k) {
-
         ListNode* temp=head;
         ListNode* prevnode=nullptr;
         while(temp!=nullptr){
-            ListNode* kthnode=kthNode(temp,k);
+            ListNode* kthnode= kthNode(temp,k);
             if(kthnode==nullptr){
-                if(prevnode!=nullptr) prevnode->next=temp;
+                // if(prevnode==nullptr) return head;
                 return head;
             }
+
             ListNode* Nextnode=kthnode->next;
             kthnode->next=nullptr;
             reversenode(temp);
@@ -48,9 +48,13 @@ public:
             else{
                 prevnode->next=kthnode;
             }
+            
+            temp->next=Nextnode;
+
             prevnode=temp;
             temp=Nextnode;
         }
+
         return head;
         
     }
