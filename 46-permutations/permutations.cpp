@@ -1,15 +1,21 @@
 class Solution {
 public:
-   void solve(vector<vector<int>> &ans,vector<int> &nums,int ind){
+   void solve(vector<vector<int>> &ans,vector<int> &nums,vector<int> &v,vector<bool> &used){
       
-     if(ind==nums.size()){
-        ans.push_back(nums);
+     if(v.size()==nums.size()){
+        ans.push_back(v);
+        return;
      }
 
-     for(int i=ind;i<nums.size();i++){
-         swap(nums[i],nums[ind]);
-         solve(ans,nums,ind+1);
-         swap(nums[i],nums[ind]);
+     for(int i=0;i<nums.size();i++){
+        if(used[i]) continue;
+
+        used[i]=true;
+        v.push_back(nums[i]);
+        solve(ans,nums,v,used);
+        v.pop_back();
+        used[i]=false;
+
 
      }
    }
@@ -17,7 +23,10 @@ public:
         
         vector<vector<int>> ans;
 
-        solve(ans,nums,0);
+        vector<int> v;
+        vector<bool> used(nums.size(),false);
+
+        solve(ans,nums,v,used);
 
         return ans;
     }
