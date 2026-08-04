@@ -16,21 +16,23 @@ public:
             return nullptr;
         }
 
-        ListNode* dummy= new ListNode(-1);
-        dummy->next=head;
-        
+        ListNode* dummy =new ListNode(-1,head);
+
         ListNode* fast=dummy;
         ListNode* slow=dummy;
-        int k=n;
-        while(k--){
+
+        for(int i=0;i<n;i++){
             fast=fast->next;
         }
-        while(fast!=nullptr && fast->next!=nullptr){
+
+        while(fast->next!=nullptr){
             fast=fast->next;
             slow=slow->next;
         }
 
         slow->next=slow->next->next;
+
         return dummy->next;
+        
     }
 };
