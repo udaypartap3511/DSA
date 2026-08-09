@@ -21,23 +21,18 @@ public:
         Node* temp=head;
 
         while(temp!=nullptr){
-            Node* Next=temp->next;
-            Node* curr=new Node(temp->val);
-            temp->next=curr;
-            curr->next=Next;
-            temp=temp->next->next;
+           Node* Next=temp->next;
+           Node* copy=new Node(temp->val);
+           temp->next=copy;
+           copy->next=Next;
+           temp=temp->next->next;
         }
 
         temp=head;
-
         while(temp!=nullptr){
-            if(temp->random==nullptr){
-                temp->next->random=nullptr;
-            }
-            else{
-                temp->next->random=temp->random->next;
-            }
-            temp=temp->next->next;
+           if(temp->random==nullptr) temp->next->random=nullptr;
+           else temp->next->random=temp->random->next;
+           temp=temp->next->next;
         }
 
         Node* dummy=new Node(-1);
@@ -45,13 +40,13 @@ public:
 
         temp=head;
         while(temp!=nullptr){
-            dd->next=temp->next;
+            dummy->next=temp->next;
             temp->next=temp->next->next;
-            dd=dd->next;
             temp=temp->next;
+            dummy=dummy->next;
         }
 
-        return dummy->next;
+        return dd->next;
         
     }
 };
