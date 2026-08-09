@@ -8,15 +8,14 @@ public:
         int right=n-1;
         int leftmost=0;
         int rightmost=0;
-
         int cnt=0;
 
         while(left<=right){
 
             if(leftmost<=rightmost){
-               leftmost=max(leftmost,height[left]);
-               cnt+=leftmost-height[left];
-               left++;
+                leftmost=max(leftmost,height[left]);
+                cnt+=leftmost-height[left];
+                left++;
             }
             else{
                 rightmost=max(rightmost,height[right]);
@@ -25,7 +24,6 @@ public:
             }
         }
         
-
         return cnt;
     }
 };
