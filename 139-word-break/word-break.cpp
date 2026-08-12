@@ -10,9 +10,9 @@ public:
         if(t[ind]!=-1){
             return t[ind];
         }
-        if(mp.find(s)!=mp.end()){
-            return t[ind]=true;
-        }
+        // if(mp.find(s)!=mp.end()){
+        //     return t[ind]=true;
+        // }
 
         for(int l=1;l<=n;l++){
             string temp=s.substr(ind,l);
