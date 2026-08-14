@@ -15,13 +15,13 @@ public:
         ListNode* prev=nullptr;
 
         while(head!=nullptr){
-            ListNode* Next=head->next;
+            ListNode* nextnode=head->next;
             head->next=prev;
             prev=head;
-            head=Next;
+            head=nextnode;
         }
+        
 
         return prev;
-        
     }
 };
