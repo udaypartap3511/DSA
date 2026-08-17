@@ -6,18 +6,17 @@ public:
 
         vector<vector<int>> dp(n+1,vector<int>(amount+1,0));
 
-        for(int i=0;i<=amount;i++){
-            dp[0][i]=INT_MAX-1;
+        for(int j=0;j<=amount;j++){
+            dp[0][j]=INT_MAX-1;
         }
-
         for(int i=1;i<=n;i++){
             dp[i][0]=0;
         }
-
-        for(int i=1;i<=amount;i++){
-            if(i%coins[0]==0) dp[1][i]=i/coins[0];
+        
+        for(int j=1;j<=amount;j++){
+            if(j%coins[0]==0) dp[1][j]=j/coins[0];
             else{
-                dp[1][i]=INT_MAX-1;
+                dp[1][j]=INT_MAX-1;
             }
         }
 
@@ -37,6 +36,6 @@ public:
         }
 
         return dp[n][amount];
-        
+
     }
 };
