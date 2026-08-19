@@ -10,22 +10,26 @@ class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
 
-        ListNode* dummy=new ListNode(0,headA);
-        ListNode* dd=new ListNode(0,headB);
-
-        ListNode* fast=headA;
-        ListNode* slow=headB;
+        ListNode* slow=headA;
+        ListNode* fast=headB;
 
         while(fast!=slow){
             if(fast==nullptr){
-                fast=dd;
+                fast=headA;
+            }
+            else{
+                fast=fast->next;
             }
             if(slow==nullptr){
-                slow=dummy;
+                slow=headB;
             }
-            fast=fast->next;
-            slow=slow->next;
+
+            else{
+                slow=slow->next;
+            }
+            
         }
+
         return slow;
         
     }
