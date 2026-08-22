@@ -1,24 +1,24 @@
 class Solution {
 public:
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
-       
-       int total=m+n-1;
-       int i=m-1;
-       int j=n-1;
-       while(i>=0 && j>=0){
-        if(nums1[i]>=nums2[j]){
-            nums1[total--]=nums1[i--];
+
+     int s=m+n-1;
+     int l=m-1;
+     int r=n-1;
+
+     while(l>=0 && r>=0){
+        if(nums1[l]>=nums2[r]){
+            nums1[s--]=nums1[l--];
         }
         else{
-            nums1[total--]=nums2[j--];
+            nums1[s--]=nums2[r--];
         }
-       }
-       while(i>=0){  // we can omit this loop as all elem. of i willbe in corr. pos. if j<0
-           nums1[total--]=nums1[i--];
-       }
-       while(j>=0){
-           nums1[total--]=nums2[j--];
-       }
-        
+     }
+
+     while(r>=0){
+        nums1[s--]=nums2[r--];
+     }   
+    
+
     }
 };
