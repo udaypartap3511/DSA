@@ -22,9 +22,7 @@ public:
             st.push(nums2[i]);
         }
         for(int i=0;i<nums1.size();i++){
-            if(nge2.find(nums1[i])!=nge2.end()){
-                nge[i]=nge2[nums1[i]];
-            }
+            nge[i]=nge2[nums1[i]];
         }
 
         return nge;
