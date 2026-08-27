@@ -7,32 +7,19 @@ public:
             if(c=='[' || c=='{' || c== '('){
                 st.push(c);
             }
-            else if(c==']' ){
+            
+            else{
                 if(st.empty()) return false;
-               if(st.top()=='['){
-                st.pop();
-               }
-               else{
-                return false;
-               }
-            }
-            else if( c=='}' ){
-                 if(st.empty()) return false;
-                 if(st.top()=='{'){
-                st.pop();
-               }
-               else{
-                return false;
-               }
-            }
-            else if(c==')'){
-                 if(st.empty()) return false;
-                 if(st.top()=='('){
-                st.pop();
-               }
-               else{
-                return false;
-               }
+                char ch = st.top();
+
+                if(c==']' && ch=='['
+                || c=='}' && ch=='{'
+                || c==')' && ch=='('){
+                    st.pop();
+                }
+                else{
+                    return false;
+                }
             }
         }
 
