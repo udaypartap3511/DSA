@@ -2,8 +2,8 @@ class LFUCache {
 public:
     class node{
         public:
-        int _val;
         int _key;
+        int _val;
         int cnt;
         node* next;
         node* prev;
@@ -14,20 +14,16 @@ public:
         }
     };
 
-    int cap;
-    unordered_map<int,node*> cacheMap;
-    unordered_map<int,pair<node*,node*>> freqMap;
-    int minFreq;
+     int cap;
+     unordered_map<int,node*> cacheMap;
+     unordered_map<int,pair<node*,node*>> freqMap;
+     int minFreq;
 
-    LFUCache(int capacity) {
-        cap=capacity;
-        minFreq=0;
-    }
+     void addNode(node* newNode,int freq){
 
-    void addNode(node* newNode,int freq){
         if(freqMap.find(freq)==freqMap.end()){
-            node* head=new node(-1,-1);
-            node* tail=new node(-1,-1);
+            node* head= new node(-1,-1);
+            node* tail= new node(-1,-1);
             freqMap[freq]={head,tail};
             head->next=tail;
             tail->prev=head;
@@ -39,68 +35,74 @@ public:
         newNode->prev=head;
         newNode->next=temp;
         temp->prev=newNode;
-    }
 
-    void remove(node* delNode){
-        node* delNodePrev=delNode->prev;
-        node* delNodeNext=delNode->next;
+     }
+
+     void deleteNode(node* delNode){
+        node* delNodePrev= delNode->prev;
+        node* delNodeNext= delNode->next;
         delNodePrev->next=delNodeNext;
         delNodeNext->prev=delNodePrev;
-    }
-    
-    void updateFreq(node* node){
+     }
+
+     void updateFreq(node* node){
         int oldFreq=node->cnt;
         node->cnt++;
 
-        remove(node);
+        deleteNode(node);
 
         if(freqMap[oldFreq].first->next==freqMap[oldFreq].second){
             freqMap.erase(oldFreq);
 
-            if(minFreq==oldFreq){
-            minFreq++;
+            if(oldFreq==minFreq){
+                minFreq++;
             }
         }
 
         addNode(node,node->cnt);
+     }
+
+    LFUCache(int capacity) {
+        cap=capacity;
+        minFreq=1;
     }
+    
     int get(int key) {
-        if(cacheMap.find(key)==cacheMap.end()){
-            return -1;
+        if(cacheMap.find(key)!=cacheMap.end()){
+           node* node=cacheMap[key];
+           int res=node->_val;
+           updateFreq(node);
+           return res;
         }
-        node* resNode=cacheMap[key];
-        int res=resNode->_val;
-        updateFreq(resNode);
-        return res;
+
+        return -1;
     }
     
     void put(int key, int value) {
-        
+
         if(cap==0){
             return;
         }
         if(cacheMap.find(key)!=cacheMap.end()){
-           node* resNode=cacheMap[key];
-           resNode->_val=value;
-           updateFreq(resNode);
+            node* resNode=cacheMap[key];
+            resNode->_val=value;
+            updateFreq(resNode);
         }
         else{
             if(cacheMap.size()==cap){
-                node* delNode=freqMap[minFreq].second->prev;
-                remove(delNode);
+                node* delNode= freqMap[minFreq].second->prev;
+                deleteNode(delNode);
                 cacheMap.erase(delNode->_key);
 
                 if(freqMap[minFreq].first->next==freqMap[minFreq].second){
                     freqMap.erase(minFreq);
                 }
-                delete delNode;
             }
-            
-            node* newnode=new node(key,value);
-            cacheMap[key]=newnode;
-            addNode(newnode,1);
+
+            node* newNode= new node(key,value);
+            addNode(newNode,1);
+            cacheMap[key]=newNode;
             minFreq=1;
-        
         }
     }
 };
