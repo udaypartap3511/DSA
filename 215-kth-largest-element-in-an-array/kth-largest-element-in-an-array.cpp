@@ -1,21 +1,52 @@
 class Solution {
 public:
-    int findKthLargest(vector<int>& nums, int k) {
+    int partition_algo(int left,int right,vector<int> &nums){
         
-        priority_queue<int,vector<int>,greater<int>> min_heap;
+        int p=left;
+        int i=left+1;
+        int j=right;
 
-        for(int i=0;i<k;i++){
-            min_heap.push(nums[i]);
+        while(i<=j){
+
+           if(nums[i]<nums[p] && nums[j]>nums[p]){
+            swap(nums[i],nums[j]);
+            i++;
+            j--;
+           }
+           if(nums[i]>=nums[p]){
+            i++;
+           }
+           if(nums[j]<=nums[p]){
+            j--;
+           }
         }
 
-        for(int i=k;i<nums.size();i++){
+        swap(nums[left],nums[j]);
 
-            if(min_heap.top()<nums[i]){
-                min_heap.pop();
-                min_heap.push(nums[i]);
+        return j;
+    }
+    int findKthLargest(vector<int>& nums, int k) {
+        
+        int n=nums.size();
+        int left=0;
+        int right=n-1;
+        int pvt_idx=0;
+
+        while(true){
+
+            pvt_idx=partition_algo(left,right,nums);
+
+            if(pvt_idx==k-1){
+                break;
+            }
+            if(pvt_idx>k-1){
+                right=pvt_idx-1;
+            }
+            else{
+                left=pvt_idx+1;
             }
         }
 
-        return min_heap.top();
+        return nums[pvt_idx];
     }
 };
