@@ -13,7 +13,7 @@ class Solution {
 public:
     void solve(TreeNode* leftroot,TreeNode* rightroot,bool &flag){
 
-        if(leftroot==nullptr &&rightroot!=nullptr || leftroot!=nullptr && rightroot==nullptr){
+        if((leftroot==nullptr &&rightroot!=nullptr) || (leftroot!=nullptr && rightroot==nullptr)){
             flag=false;
             return;
         }
