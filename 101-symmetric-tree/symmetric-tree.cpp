@@ -11,30 +11,28 @@
  */
 class Solution {
 public:
-    void solve(TreeNode* leftroot,TreeNode* rightroot,bool &flag){
+    bool solve(TreeNode* leftroot,TreeNode* rightroot){
 
-        if((leftroot==nullptr &&rightroot!=nullptr) || (leftroot!=nullptr && rightroot==nullptr)){
-            flag=false;
-            return;
+        if(leftroot==nullptr || rightroot==nullptr){
+            return (leftroot==rightroot);
         }
 
         if(leftroot->val!=rightroot->val){
-            flag=false;
-            return;
+            return false;
         }
 
-        if(leftroot->left){
-            solve(leftroot->left,rightroot->right,flag);
-        }
-        if(leftroot->right){
-            solve(leftroot->right,rightroot->left,flag);
-        }
+           return
+            solve(leftroot->left,rightroot->right)
+                      &&
+            solve(leftroot->right,rightroot->left);
+        
     }
     bool isSymmetric(TreeNode* root) {
         
-        bool flag=true;
+        if(root==nullptr) return true;
 
-        solve(root,root,flag);
-        return flag;
+        return solve(root->left,root->right);
+
+        
     }
 };
